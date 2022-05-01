@@ -1,0 +1,66 @@
+﻿// Authentication & Authorization
+
+1. Create a User entity in Model Folder
+
+2. Create DbSet<User> in ApplicationDbContext.cs & do Migration
+
+3. Create Repository(interface and class)
+	Methods
+		a) bool IsUserUnique(string username);
+		b) User Authenticate(string username,string password);
+		c) User Register(string username,string password);
+
+4. Register the Repository i.e UserRepository
+
+5. Create AppSettings obj in appsettings.json as follows
+	AppSettings:{
+	"Secret":"dfsdfsdfhsdfgshdfgjdfgsjdfgsjhdfgsdhfgshjdfgsdf"
+	}
+
+6. Create the class in the Root as same name as of the AppSettings.cs and create a property named Secret
+
+7. Register this AppSettings in the program.cs as follows
+	var appsettings = builder.Configuration.GetSection("AppSettings")
+	builder.Services.Configure<AppSettings>(appsettings);
+	
+	// Configuration for secret key
+
+	var appSettingsSection = appsettings.Get<AppSettings>();
+	var key = Encoding.ASCII.GetBytes(appSettingsSection.Secret);
+
+8. Now Configuration for Bearer token in program.cs in three steps
+	a) Authentication setup	
+			
+			builder.Services.AddAuthentication(x=>{
+			x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+			x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+		})
+
+	b) Bear setup
+
+		builder.Services.AddAuthentication(x=>{
+			x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+			x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+		}).
+		.AddJwtBearer(x=>{
+		  x.RequireHttpsMetadata = false;
+		  x.SaveToken = true;
+		  x.TokenValidationParameters = new TokenValidationParameters
+		  {
+			  ValidateIssuerSigningKey = true,
+			  IssuerSigningKey = new SymmetricSecurityKey(key),
+			  ValidateIssuer = false,
+			  ValidateAudience = false,
+		  };
+		});
+
+
+	c) In pipeline use these two methods
+		i) app.UseAuthentication() 
+		ii) app.UseCors(x=>{x
+				.AllowAnyOrigin()
+				.AllowAnyMethods()
+				.AllowAnyHeaders()});
+
+
+9. 

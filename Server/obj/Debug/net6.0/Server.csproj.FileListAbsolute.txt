@@ -59,3 +59,4 @@ C:\Users\snehg\OneDrive\Desktop\Learning\React\expense_tracker\Server\obj\Debug\
 C:\Users\snehg\OneDrive\Desktop\Learning\React\expense_tracker\Server\obj\Debug\net6.0\ref\Server.dll
 C:\Users\snehg\OneDrive\Desktop\Learning\React\expense_tracker\Server\obj\Debug\net6.0\Server.pdb
 C:\Users\snehg\OneDrive\Desktop\Learning\React\expense_tracker\Server\obj\Debug\net6.0\Server.genruntimeconfig.cache
+C:\Users\snehg\OneDrive\Desktop\Learning\React\expense_tracker\Server\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
